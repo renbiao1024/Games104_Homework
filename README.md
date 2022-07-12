@@ -45,4 +45,4 @@ void main()
 
 ## 效果
 
-![](D:\UnrealProject\Games104HomeWork\assets\image-20220712180552067.png)
+![](.\assets\image-20220712180552067.png)
