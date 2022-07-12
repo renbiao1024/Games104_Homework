@@ -45,4 +45,4 @@ void main()
 
 ## 效果
 
-![s](.\assets\image-20220712180552067.png)
+![figure 1](assets\image-20220712180552067.png)
