@@ -302,3 +302,67 @@ bool AnimationFSM::update(const json11::Json::object& signals)
 
 - 这一part日后有待完善，等等大佬们的解
 
+### 效果
+
+![1658293676469 00_00_00-00_00_30](assets/1658293676469%2000_00_00-00_00_30.gif)
+
+## 作业4
+
+### 题目
+
+- 掌握 Piccolo 中反射宏和反射标签的用法。 
+- 同学们选择自己感兴趣的系统，给它管理的 Component 结构增加或修改一个 属性，检查它及 Component 结构的反射宏和反射标签，确保它能够被正确的 反射。
+- 在 Piccolo 代码中找到 engine/source/editor/source/editor_ui.cpp，找到 createClassUI ()函数，详细阅读代码，检查通过反射系统创建 UI 面板的逻辑， 确保新加的属性能被正确的显示到右侧 Components Details 面板对应的 component 中。
+- 基础的参数反射和控件生成完成后，想要继续挑战高难度的同学，可以尝试 在对应系统中让新增或修改的属性按照自己预想的方式工作起来！
+
+![image-20220720092013646](assets/image-20220720092013646.png)
+
+### 实现
+
+我看到源代码中的相机组件有 第一人称，自由视角，第三人称 三种，我希望能在编辑器里做修改。
+
+```cpp
+//camera_component.h
+REFLECTION_TYPE(CameraComponent)
+CLASS(CameraComponent : public Component, WhiteListFields)
+{
+    REFLECTION_BODY(CameraComponent)        
+        ...
+    public:
+        META(Enable)
+        int CameraType {1};
+}
+```
+
+```cpp
+//camera_component.cpp
+
+        //if (current_character->getObjectID() != m_parent_object.lock()->getID())
+        //    return;
+
+        const int camera_type_Index = CameraType;
+
+        if (camera_type_Index == 1)
+        {
+            m_camera_mode = CameraMode::first_person;
+        }
+        else if (camera_type_Index == 3)
+        {
+            m_camera_mode = CameraMode::third_person;
+        }
+        else if (camera_type_Index == 2)
+        {
+            m_camera_mode = CameraMode::free;
+        }
+        else
+        {
+            LOG_ERROR("invalid camera type");
+        }
+
+        //switch (m_camera_mode)
+
+```
+
+### 效果
+
+![1658292567656 00_00_00-00_00_30](assets/1658292567656%2000_00_00-00_00_30.gif)
